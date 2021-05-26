@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Resultados para {{palabra}}</h1>
+
+{% for name  in array  %}
+
+    <p><a href="{% url 'verdoc' %}?Documento={{ name.path }}">{{name.path}}</a> - {{name.repeticiones}} veces repetida</p>
+
+{% endfor %}
+
+</body>
+</html>

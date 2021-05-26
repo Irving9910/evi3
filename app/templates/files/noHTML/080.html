@@ -1,0 +1,117 @@
+AIRSAR Compressed Stokes Matrix Data CM Description
+AIRSAR Compressed Stokes Matrix Data CM Description
+
+
+
+
+This manual is still being converted
+
+
+
+AIRSAR Data Compression Formats
+
+
+For AIRSAR data there are four possible formats  
+  compressed stokes matrix data  multilookquadpol lowres  bytespixel
+  compressed scattering matrix  processor data  single lookquadpol bytespixel
+  compressed scattering matrix  processor data  single lookquadpol lowres  bytespixel
+  uncompressed synoptic amplitude data  vax real single pol lowres  bytespixel
+In the following descriptions
+  sign  will return the sign of the argument   
+ nint  will indicate that the nearest integer value is calculated of its argument 
+ int  will indicate that the truncation of the floating point value to integer is calculated of its argument and that if the floating point value is less than zero subtraction by  is additionally required Note that this is not the same as FORTRAN int 
+
+ genfac is the AIRSAR general scale factor whose value is recorded in the header of the oldheader field 
+
+
+
+
+Stokes matrix data
+
+AIRSAR compressed Stokes matrix CM quadpol data   bytes per pixel Consists of one file for each scene per frequency Each line of each file consists of  azimuth samples There are  or  lines depending on the processor each corresponding to progressively greater range from the radar The azimuth pixel spacing is  meters for the pre prf and  meters for the  and later prf The range pixel spacing is  meters assumes  MHz data The first two or three lines in the file are header lines The data has been symmetrized such that SHV   SHV SVH and is usually calibrated For the  processor the data has been multilooked by  while for the  processor the data has been multilooked by  
+  bytes per pixel  quadpol data with
+ Byte  intlogM
+ Byte  nintMantissa  
+ Mantissa  M  Byte
+ qsca  genfac  Byte      Byte
+ Byte  nint Mqsca
+ Byte  nint signMqsca sqrtMqsca
+ Byte  nint signMqsca sqrtMqsca
+ Byte  nint signMqsca sqrtMqsca
+ Byte  nint signMqsca sqrtMqsca
+ Byte  nint Mqsca
+ Byte  nint Mqsca
+ Byte  nint Mqsca
+The total power is 
+ TP  M  genfac  byte     Byte The remaining terms are given by 
+
+ M  M byte 
+ M  signbyte M byte 
+ M  signbyte M byte 
+ M  signbyte M byte 
+ M  signbyte M byte 
+ M  M byte 
+ M  M byte 
+ M  M byte 
+ M  M  M  M
+
+The difference between the AIRSAR CM data and SIRC MLC data is chiefly that for AIRSAR the elements of the Stokes Matrix are stored directly to each compressed byte while for SIRC the crossproducts that when combined appropriately comprise the Stokes matrix are stored In addition the AIRSAR data employs a general scale factor while SIRC does not And finally the value stored in the first two bytes by AIRSAR is the total power divided by the general scale factor while the value stored in the first two bytes by SIRC is four times the total power
+
+
+
+The Stokes matrix and CrossProducts
+
+The symmetrized Stokes matrix may be formed from the crossproducts of the scattering matrix that are stored by SIRC in the MLC format as follows
+
+m  ShhShh  SvvSvv  ShvShv  
+m  ShhShh  SvvSvv  
+m  ReShhShv  ReShvSvv   
+m  ImShhShv  ImShvSvv   
+m  m
+m  ShhShh SvvSvv  ShvShv   
+m   ReShhShv  ReShvSvv   
+m  ImShhShv  ImShvSvv  
+m  m
+m  m
+m  ShvShv  ReShhSvv  
+m  ImShhSvv  
+m  m
+m  m
+m  m
+m  ShvShv  ReShhSvv  
+
+The crossproducts in terms of the symmetrized Stokes matrix elements are 
+
+ShhShh  m  m  m  m
+ShvShv  m  m
+SvvSvv  m  m  m  m
+ShhShv  complex m  m m  m  
+ShhSvv  complex m  m m 
+ShvSvv  complex m  m m  m 
+ 
+For SLC data the Stokes matrix will not be symmetrized The unsymmetrized Stokes Matrix is given by
+
+m  ShhShh  ShvShv  SvhSvh  SvvSvv  
+m  ShhShh  ShvShv  SvhSvh  SvvSvv  
+m  ReShhShv  ReSvhSvv   
+m  ImShhShv  ImSvhSvv   
+m  ShhShh  ShvShv  SvhSvh  SvvSvv  
+m  ShhShh  SvvSvv  ShvShv  SvhSvh  
+m   ReShhShv  ReSvhSvv   
+m  ImShhShv  ImSvhSvv  
+m  ReShhSvh  ReShvSvv   
+m   ReShhSvh  ReShvSvv   
+m  ShvShv  ReShhSvv  
+m  ImShhSvvImShvSvh  
+m  ImShhSvh  ImShvSvv   
+m  ImShhSvh  ImShvSvv  
+m  ImShhSvv  ImShvSvh  
+m  ReShvSvh  ReShhSvv  
+
+
+
+ Imaging Radar Home Page
+
+Updated 
+brucechapmanjplnasagov
+ 
