@@ -13,10 +13,11 @@ def home(request):
 
 def verdoc(request):
     doc = request.GET["Documento"]
-    f = open('app/templates/files/noHTML/'+doc, 'r')
+    f = open('app/templates/files/Files/'+doc, 'r', encoding="utf8",errors='ignore')
     file_content = f.read()
     f.close()
     return HttpResponse(file_content, content_type="text/plain")
+    ##return render(request, 'files/Files/'+doc)
 
 def procesar(request):
     print("Procesando")
